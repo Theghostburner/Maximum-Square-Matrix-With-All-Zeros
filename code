@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+int findMaxSquareWithAllZeros(int **arr, int n, int m)
+{
+	int** out = new int*[n]();
+    for(int i=0;i<n;i++)
+    {
+        out[i] = new int[m]();
+    }
+    for(int i=0;i<m;i++)
+    {
+        if(arr[0][i] == 0)
+        {
+            out[0][i] = 1;
+        }
+        else
+        {
+            out[0][i] = 0;
+        }
+    }
+    for(int i=1;i<n;i++)
+    {
+        if(arr[i][0] == 0)
+        {
+            out[i][0] = 1;
+        }
+        else
+        {
+            out[i][0] = 0;
+        }
+    }
+    for(int i=1;i<n;i++)
+    {
+        for(int j=1;j<m;j++)
+        {
+            if(arr[i][j] == 0)
+            {
+            	out[i][j] = min(out[i-1][j-1],min(out[i-1][j],out[i][j-1])) + 1;
+            }
+            else
+        	{
+            	out[0][i] = 0;
+        	}
+        }
+    }
+    int max =0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<m;j++)
+        {
+            if(out[i][j] > max)
+            {
+                max = out[i][j];
+            }
+        }
+       
+    }
+    return max;
+}
